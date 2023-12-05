@@ -2,31 +2,19 @@ import { IntegrationBase } from "@budibase/types";
 import fetch from "node-fetch";
 import ical2json from "ical2json";
 
-interface Query {
-  method: string;
-  body?: string;
-  headers?: { [key: string]: string };
-}
-
-interface JsonDict {
-  [key: string]: string | number | boolean | (string | number | boolean)[];
-}
-
 class CustomIntegration implements IntegrationBase {
   private readonly url: string;
 
-  constructor(config: {
-    url: string;
-  }) {
+  constructor(config: { url: string } ) {
     this.url = config.url;
   }
 
-  async request(url: string, opts: Query) {
+  async request(url: string) {
     if (!this.url) {
       throw new Error("Need to provide a URL for the .ics file.");
     }
 
-    const response = await fetch(url, opts);
+    const response = await fetch(url);
     if (response.status <= 300) {
       try {
         return ical2json.convert(await response.text());
@@ -40,12 +28,7 @@ class CustomIntegration implements IntegrationBase {
   }
 
   async read() {
-    const opts = {
-      method: "GET",
-      body: "",
-      headers: {},
-    };
-    return this.request(this.url, opts);
+    return this.request(this.url);
   }
 }
 
