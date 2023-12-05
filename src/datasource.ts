@@ -1,6 +1,6 @@
 import { IntegrationBase } from "@budibase/types";
 import fetch from "node-fetch";
-import "ical.js"
+import "ical2json"
 
 interface Query {
   method: string;
@@ -29,14 +29,9 @@ class CustomIntegration implements IntegrationBase {
     const response = await fetch(url, opts);
     if (response.status <= 300) {
       try {
-        const contentType = response.headers.get("content-type");
-        if (contentType?.includes("json")) {
-          return await response.json();
-        } else {
-          return await response.text();
-        }
+        return await ical2json.convert(response.text());
       } catch (err) {
-        return await response.text();
+        return await ical2json.convert(response.text());
       }
     } else {
       const err = await response.text();
@@ -59,22 +54,6 @@ class CustomIntegration implements IntegrationBase {
       },
     };
     return this.request(this.url, opts);
-  }
-
-  async read() {
-    throw new Error("Not implemented");
-  }
-
-  async update() {
-    throw new Error("Not implemented");
-  }
-
-  async delete() {
-    throw new Error("Not implemented");
-  }
-
-  async close() {
-    throw new Error("Not implemented");
   }
 }
 
