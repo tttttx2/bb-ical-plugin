@@ -39,19 +39,11 @@ class CustomIntegration implements IntegrationBase {
     }
   }
 
-  async create(query: { title: string; body: string }) {
-    const body = {
-      title: query.title,
-      body: query.body,
-      assignees: [this.github_user],
-    };
-
+  async read() {
     const opts = {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      method: "GET",
+      body: "",
+      headers: {},
     };
     return this.request(this.url, opts);
   }
