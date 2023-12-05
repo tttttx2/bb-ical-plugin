@@ -15,7 +15,8 @@ class CustomIntegration implements IntegrationBase {
   }
 
   async read() {
-    return ical2json.convert(this.request(this.url));
+    const icaldata = await this.request(this.url);
+    return ical2json.convert(icaldata);
   }
 }
 
