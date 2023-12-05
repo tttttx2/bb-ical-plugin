@@ -1,7 +1,7 @@
 {
   "name": "bb-ical",
   "version": "1.0.0",
-  "description": "ICAL readonly datasource",
+  "description": "ICALENDAR readonly datasource",
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
