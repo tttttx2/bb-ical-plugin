@@ -1,6 +1,6 @@
 import { IntegrationBase } from "@budibase/types";
 import fetch from "node-fetch";
-import "ical2json"
+import ical2json from "ical2json"
 
 interface Query {
   method: string;
