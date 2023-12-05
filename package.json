@@ -1,7 +1,7 @@
 {
-  "name": "bb-github",
+  "name": "bb-ical",
   "version": "1.0.0",
-  "description": "An amazing Budibase datasource!",
+  "description": "ICAL readonly datasource",
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@budibase/types": "^1.2.38",
     "node-fetch": "^2"
+    "ical.js":"^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.0",
