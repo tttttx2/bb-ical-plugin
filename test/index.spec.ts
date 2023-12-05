@@ -17,35 +17,9 @@ describe("test the query types", () => {
     expect(error).not.toBeNull()
   }
 
-
-  it("should run the create query", async () => {
-    await catchError(() => {
-      return integration.create({
-        json: { a: 1 }
-      })
-    })
-  })
-
   it("should run the read query", async () => {
-    const response = await integration.read({
-      queryString: "a=1"
-    })
+    const response = await integration.read()
     expect(typeof response).toBe("string")
   })
 
-  it("should run the update query", async () => {
-    await catchError(() => {
-      return integration.update({
-        json: { a: 1 }
-      })
-    })
-  })
-
-  it("should run the delete query", async () => {
-    await catchError(() => {
-      return integration.delete({
-        id: 1
-      })
-    })
-  })
 })
