@@ -10,25 +10,12 @@ class CustomIntegration implements IntegrationBase {
   }
 
   async request(url: string) {
-    if (!this.url) {
-      throw new Error("Need to provide a URL for the .ics file.");
-    }
-
     const response = await fetch(url);
-    if (response.status <= 300) {
-      try {
-        return ical2json.convert(await response.text());
-      } catch (err) {
-        return ical2json.convert(await response.text());
-      }
-    } else {
-      const err = await response.text();
-      throw new Error(err);
-    }
+    return await response.text();
   }
 
   async read() {
-    return this.request(this.url);
+    return ical2json.convert(this.request(this.url));
   }
 }
 
