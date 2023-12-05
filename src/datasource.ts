@@ -29,9 +29,9 @@ class CustomIntegration implements IntegrationBase {
     const response = await fetch(url, opts);
     if (response.status <= 300) {
       try {
-        return await ical2json.convert(response.text());
+        return ical2json.convert(await response.text());
       } catch (err) {
-        return await ical2json.convert(response.text());
+        return ical2json.convert(await response.text());
       }
     } else {
       const err = await response.text();
