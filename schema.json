@@ -14,7 +14,7 @@
       }
     },
     "query": {
-      "create": {
+      "read": {
         "type": "fields",
         "fields": {
           "summary": {
