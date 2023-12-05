@@ -3,76 +3,35 @@
   "metadata": {},
   "schema": {
     "docs": "https://docs.budibase.com",
-    "friendlyName": "Github Issues",
+    "friendlyName": "icalendar readonly",
     "type": "API",
-    "description": "Provides routes to manage Github issues in Budibase",
+    "description": "Provides a readonly ical datasource",
     "datasource": {
-      "user": {
+      "url": {
         "type": "string",
         "required": true,
-        "display": "Github Username"
-      },
-      "pat": {
-        "type": "string",
-        "required": true,
-        "display": "Personal Access Token"
-      },
-      "repo_owner": {
-        "type": "string",
-        "required": true,
-        "display": "Repository Owner"
-      },
-      "repo_name": {
-        "type": "string",
-        "required": true,
-        "display": "Repository Name"
+        "display": "url to .ics file"
       }
     },
     "query": {
       "create": {
         "type": "fields",
         "fields": {
-          "title": {
-            "display": "Title",
+          "summary": {
+            "display": "Summary",
             "type": "string",
             "required": true
           },
-          "body": {
-            "display": "Description of issue",
-            "type": "longForm",
-            "required": true
-          }
-        }
-      },
-      "read": {
-        "type": "fields",
-        "fields": {
-          "id": {
-            "display": "Issue Id",
-            "type": "number",
-            "required": false
-          }
-        }
-      },
-      "update": {
-        "type": "json"
-      },
-      "delete": {
-        "type": "fields",
-        "fields": {
-          "id": {
+          "start": {
+            "display": "Start Date",
             "type": "string",
             "required": true
-          }
-        }
-      },
-      "close": {
-        "type": "fields",
-        "fields": {
-          "id": {
+          },
+          "end": {
+            "display": "End Date",
             "type": "string",
             "required": true
-          }
+          },
         }
       }
     }
