@@ -1,5 +1,6 @@
 import { IntegrationBase } from "@budibase/types";
 import fetch from "node-fetch";
+import "ical.js"
 
 interface Query {
   method: string;
@@ -13,28 +14,17 @@ interface JsonDict {
 
 class CustomIntegration implements IntegrationBase {
   private readonly url: string;
-  private readonly pat: string;
-  private readonly github_user: string;
 
   constructor(config: {
-    repo_owner: string;
-    pat: string;
-    repo_name: string;
-    user: string;
+    url: string;
   }) {
-    // https://api.github.com/repos/doingandlearning/budibase-issues/issues/1
-    this.url = `https://api.github.com/repos/${config.repo_owner}/${config.repo_name}/issues`;
-    this.pat = config.pat;
-    this.github_user = config.user;
+    this.url = config.url;
   }
 
   async request(url: string, opts: Query) {
-    if (!this.pat) {
-      throw new Error("Need to provide a personal access token.");
+    if (!this.url) {
+      throw new Error("Need to provide a URL for the .ics file.");
     }
-
-    const auth = { authorization: `Bearer ${this.pat}` };
-    opts.headers = opts.headers ? { ...opts.headers, ...auth } : auth;
 
     const response = await fetch(url, opts);
     if (response.status <= 300) {
@@ -71,45 +61,20 @@ class CustomIntegration implements IntegrationBase {
     return this.request(this.url, opts);
   }
 
-  async read(query: { id: string }) {
-    const opts = {
-      method: "GET",
-    };
-    if (query.id) {
-      return this.request(`${this.url}/${query.id}`, opts);
-    }
-    return this.request(`${this.url}`, opts);
+  async read() {
+    throw new Error("Not implemented");
   }
 
-  async update(query: { json: JsonDict }) {
-    if (!query.json.id) {
-      throw new Error("You need to provide an issue id");
-    }
-    const { id, ...body } = query.json;
-    const opts = {
-      method: "PATCH",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    return this.request(`${this.url}/${id}`, opts);
+  async update() {
+    throw new Error("Not implemented");
   }
 
-  async delete(query: { id: string }) {
-    const opts = {
-      method: "PATCH",
-      body: JSON.stringify({ state: "closed" }),
-    };
-    return this.request(`${this.url}/${query.id}`, opts);
+  async delete() {
+    throw new Error("Not implemented");
   }
 
-  async close(query: { id: string }) {
-    const opts = {
-      method: "PATCH",
-      body: JSON.stringify({ state: "closed" }),
-    };
-    return this.request(`${this.url}/${query.id}`, opts);
+  async close() {
+    throw new Error("Not implemented");
   }
 }
 
